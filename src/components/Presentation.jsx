@@ -1,7 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
 
-function Presentation() {
-  return <p>Player 1 vs CPU</p>;
+// eslint-disable-next-line react/prop-types
+function Presentation({ player }) {
+  // eslint-disable-next-line react/prop-types
+  return <p>{player.name} vs CPU</p>;
 }
 
-export default Presentation;
+const mapStateToProps = (state) => ({
+  player: state.namePlayerReducer
+});
+
+export default connect(mapStateToProps)(Presentation);
