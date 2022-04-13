@@ -1,38 +1,78 @@
+$primaryColor: #cecece;
+$secondColor: #ffffff;
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.game-init {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+  padding: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.userNameContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 1fr;
+  gap: 0.7rem;
+
+  justify-items: center;
+  align-self: center;
+  #userName {
+    max-width: 170px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.btn-start {
+  border: 2px solid $primaryColor;
+  border-radius: 0.3rem;
+  height: 50px;
+  width: 120px;
+  text-transform: uppercase;
+  color: $primaryColor;
+  background-color: $secondColor;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.board {
+  background-color: $primaryColor;
+  padding: 0.5rem;
+  border-radius: 0.7rem;
+  display: grid;
+  max-width: 400px;
+  min-height: 400px;
+  grid-template-columns: repeat(1, minmax(40px, 1fr));
+  grid-template-rows: repeat(10, minmax(40px, 1fr));
+  //background-color: red;
+  height: 100px;
+  //gap: 0.7rem;
+  margin: 0 auto 0 auto;
+  &-row {
+    width: 100%;
+    //background-color: rebeccapurple;
+    display: grid;
+    grid-template-columns: repeat(10, minmax(40px, 1fr));
+    grid-template-rows: repeat(1, minmax(40px, 1fr));
+    //gap: 0.7rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  &-cell {
+    width: auto;
+    height: auto;
+    //border-radius: 5px;
+    border: 1px solid $primaryColor;
+    background: white;
+    //box-shadow: 23px 23px 46px #b8bbb4, -23px -23px 46px #eef3ea;
+
+    &:hover {
+      background: darken($secondColor, 10%);
+    }
+    &:active {
+      background: darken($secondColor, 15%);
+    }
   }
 }
