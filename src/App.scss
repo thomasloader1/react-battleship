@@ -1,8 +1,14 @@
 $primaryColor: #cecece;
 $secondColor: #ffffff;
 
+@import "./sass/Ship.scss";
 .App {
   text-align: center;
+}
+
+.btn {
+  border: unset;
+  height: auto;
 }
 
 .game-init {
@@ -17,9 +23,9 @@ $secondColor: #ffffff;
   grid-template-columns: 1fr;
   grid-template-rows: 50px 1fr;
   gap: 0.7rem;
-
   justify-items: center;
   align-self: center;
+
   #userName {
     max-width: 170px;
   }
@@ -47,30 +53,26 @@ $secondColor: #ffffff;
   min-height: 400px;
   grid-template-columns: repeat(1, minmax(40px, 1fr));
   grid-template-rows: repeat(10, minmax(40px, 1fr));
-  //background-color: red;
   height: 100px;
-  //gap: 0.7rem;
   margin: 0 auto 0 auto;
+
   &-row {
     width: 100%;
-    //background-color: rebeccapurple;
     display: grid;
     grid-template-columns: repeat(10, minmax(40px, 1fr));
     grid-template-rows: repeat(1, minmax(40px, 1fr));
-    //gap: 0.7rem;
   }
 
   &-cell {
     width: auto;
     height: auto;
-    //border-radius: 5px;
     border: 1px solid $primaryColor;
     background: white;
-    //box-shadow: 23px 23px 46px #b8bbb4, -23px -23px 46px #eef3ea;
 
     &:hover {
       background: darken($secondColor, 10%);
     }
+
     &:active {
       background: darken($secondColor, 15%);
     }

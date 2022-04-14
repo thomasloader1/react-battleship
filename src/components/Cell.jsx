@@ -1,10 +1,9 @@
-/* eslint-disable react/require-default-props */
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { selectCellAction } from "../store/actions/selectCellAction";
 
-function Cell({ positionX = 0, positionY = 0, selectCellAction }) {
+function Cell({ positionX = 0, positionY = 0 }) {
   return (
     <button
       type="button"
@@ -24,8 +23,7 @@ const mapDispatchToProps = {
 
 Cell.propTypes = {
   positionX: PropTypes.number.isRequired,
-  positionY: PropTypes.number.isRequired,
-  selectCellAction: PropTypes.func
+  positionY: PropTypes.number.isRequired
 };
 
 export default connect(null, mapDispatchToProps)(Cell);
