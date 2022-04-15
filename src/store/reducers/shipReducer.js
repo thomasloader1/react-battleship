@@ -1,9 +1,13 @@
-import { PLACE_SHIP } from "../actions/shipAction";
+import {
+  PLACE_SHIP,
+  SET_SHIP,
+  CHANGE_ORIENTATION
+} from "../actions/shipAction";
 
 const defaultShipState = {
   shipType: null,
   space: 0,
-  orientation: null,
+  orientation: "Horizontally",
   start: 0,
   end: 0
 };
@@ -19,6 +23,22 @@ const shipReducer = (state = defaultShipState, action) => {
         orientation: action.payload.orientation,
         start: action.payload.start,
         end: action.payload.end
+      };
+    }
+    case SET_SHIP: {
+      return {
+        ...state,
+        shipType: action.payload.shipType,
+        space: action.payload.space,
+        orientation: action.payload.orientation,
+        start: action.payload.start,
+        end: action.payload.end
+      };
+    }
+    case CHANGE_ORIENTATION: {
+      return {
+        ...state,
+        orientation: action.payload
       };
     }
     default:

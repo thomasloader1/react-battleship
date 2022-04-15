@@ -20,6 +20,10 @@ function Board(props) {
   );
 }
 
+Board.defaultProps = {
+  shipSelected: ""
+};
+
 // Validate the props we need on component
 Board.propTypes = {
   ships: PropTypes.arrayOf(
@@ -30,7 +34,7 @@ Board.propTypes = {
     })
   ).isRequired,
   orientation: PropTypes.string.isRequired,
-  shipSelected: PropTypes.string.isRequired
+  shipSelected: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({

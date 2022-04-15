@@ -5,13 +5,25 @@ export const getShipsAction = (action) => ({
 });
 
 export const CHANGE_ORIENTATION = "CHANGE_ORIENTATION";
-export const changeOrientationAction = (action) => ({
+export const changeOrientationAction = (orientation) => ({
   type: CHANGE_ORIENTATION,
-  payload: action
+  payload: orientation
 });
 
 export const SELECT_SHIP = "SELECT_SHIP";
 export const selectShipAction = (action) => ({
   type: SELECT_SHIP,
   payload: action
+});
+
+export const UNSELECT_SHIP = "UNSELECT_SHIP";
+export const unselectShipAction = (action) => ({
+  type: UNSELECT_SHIP,
+  payload: action
+});
+
+export const DECREMENT_SHIP_UNIT = "DECREMENT_SHIP_UNIT";
+export const decrementShipUnitAction = (type, quantity) => ({
+  type: DECREMENT_SHIP_UNIT,
+  payload: { type, quantity }
 });

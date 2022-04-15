@@ -1,7 +1,9 @@
 import {
   GET_SHIPS,
   CHANGE_ORIENTATION,
-  SELECT_SHIP
+  SELECT_SHIP,
+  UNSELECT_SHIP,
+  DECREMENT_SHIP_UNIT
 } from "../actions/battleshipAction";
 
 const battleshipConfigState = {
@@ -23,7 +25,7 @@ const battleshipConfigState = {
     }
   ],
   orientation: "Horizontally",
-  shipSelected: "Select a ship"
+  shipSelected: null
 };
 
 // eslint-disable-next-line default-param-last
@@ -44,6 +46,22 @@ const battleshipReducer = (state = battleshipConfigState, action) => {
       return {
         ...state,
         shipSelected: action.payload
+      };
+    }
+    case UNSELECT_SHIP: {
+      return {
+        ...state,
+        shipSelected: action.payload
+      };
+    }
+    case DECREMENT_SHIP_UNIT: {
+      return {
+        ...state,
+        ships: state.ships.map((ship) =>
+          ship.type === action.payload.type
+            ? { ...ship, quantity: action.payload.quantity - 1 }
+            : ship
+        )
       };
     }
     default:

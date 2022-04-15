@@ -4,6 +4,8 @@ $secondColor: #ffffff;
 @import "./sass/Ship.scss";
 .App {
   text-align: center;
+  max-width: 900px;
+  margin: 0 auto 0 auto;
 }
 
 .btn {
@@ -55,12 +57,17 @@ $secondColor: #ffffff;
   grid-template-rows: repeat(10, minmax(40px, 1fr));
   height: 100px;
   margin: 0 auto 0 auto;
+  transition: background-color 0.3ms;
 
   &-row {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(10, minmax(40px, 1fr));
     grid-template-rows: repeat(1, minmax(40px, 1fr));
+  }
+
+  .selected {
+    background-color: blue !important;
   }
 
   &-cell {

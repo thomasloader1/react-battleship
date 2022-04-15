@@ -5,10 +5,10 @@ import CellHook from "../hooks/CellHook";
 // Helper to draw the grid
 const draw = (state) => {
   const rowsBoard = [];
-  for (let y = 1; y <= state.boardSettings.columns; y += 1) {
+  for (let y = 0; y < state.boardSettings.columns; y += 1) {
     const cellsBoard = [];
 
-    for (let x = 1; x <= state.boardSettings.rows; x += 1) {
+    for (let x = 0; x < state.boardSettings.rows; x += 1) {
       cellsBoard.push(
         <CellHook key={`x${x}-y${y}`} positionY={y} positionX={x} />
       );

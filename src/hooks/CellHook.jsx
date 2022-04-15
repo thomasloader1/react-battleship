@@ -1,26 +1,141 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { selectCellAction } from "../store/actions/selectCellAction";
+import Swal from "sweetalert2";
 
-function CellHook({ positionY, positionX }) {
+import { useDispatch, connect } from "react-redux";
+import { selectCellAction } from "../store/actions/selectCellAction";
+import { placeShipAction } from "../store/actions/shipAction";
+import {
+  decrementShipUnitAction,
+  unselectShipAction
+} from "../store/actions/battleshipAction";
+import { setPlayerShipAction } from "../store/actions/playerAction";
+
+function CellHook({ positionY, positionX, orientation, ship, cellTarget }) {
+  const cellRef = useRef(null);
   const dispatch = useDispatch();
+  const { x: cellX, y: cellY } = cellTarget;
+  const { shipType, space, start, end } = ship;
+
+  const startPlace =
+    orientation === "Horizontally" ? positionX + space : positionX;
+  const endPlace = orientation === "Vertically" ? positionY + space : positionY;
+
+  // eslint-disable-next-line consistent-return
+  /*   const checkCells = (elementSelector) => {
+    const element = document.querySelector(elementSelector);
+    if (element.classList.contains("selected")) {
+      console.log(element);
+      return element;
+    }
+  }; */
+
+  const decorateCells = (from, to, move) => {
+    /*     for (let i = from; i < to; i += 1) {
+      const checking = checkCells(
+        `button[data-key='x${move === "x" ? i : cellX}-y${
+          move === "y" ? i : cellY
+        }`
+      );
+    } */
+    if (from + space > 10 || to > 10) {
+      for (let i = from; i > from - space; i -= 1) {
+        // console.log(i, from);
+        document
+          .querySelector(
+            `button[data-key='x${move === "x" ? i : cellX}-y${
+              move === "y" ? i : cellY
+            }`
+          )
+          .classList.add("selected");
+      }
+    } else {
+      for (let i = from; i < to; i += 1) {
+        document
+          .querySelector(
+            `button[data-key='x${move === "x" ? i : cellX}-y${
+              move === "y" ? i : cellY
+            }`
+          )
+          .classList.add("selected");
+      }
+    }
+  };
+
+  useEffect(() => {
+    const { key } = cellRef.current.dataset;
+
+    if (key === `x${cellX}-y${cellY}`) {
+      const { from, to, move } =
+        orientation === "Horizontally"
+          ? { from: cellX, to: cellX + space, move: "x" }
+          : { from: cellY, to: cellY + space, move: "y" };
+
+      decorateCells(from, to, move);
+    }
+  }, [start, end]);
+
   return (
     <button
+      ref={cellRef}
       type="button"
       className="board-cell"
       data-y={positionY}
       data-x={positionX}
+      data-key={`x${positionX}-y${positionY}`}
       onClick={() => {
-        dispatch(selectCellAction(positionY, positionX));
+        if (shipType) {
+          dispatch(selectCellAction(positionY, positionX));
+          dispatch(
+            placeShipAction(shipType, space, orientation, startPlace, endPlace)
+          );
+          dispatch(decrementShipUnitAction(shipType, 1));
+          dispatch(unselectShipAction(null));
+          dispatch(setPlayerShipAction(ship));
+        } else {
+          Swal.fire({
+            title: "Wait a minute!",
+            text: "Select a ship first and then select in the box of your choice!.",
+            icon: "warning",
+            confirmButtonText: "Okay!",
+            customClass: {
+              confirmButton: "btn"
+            },
+            allowOutsideClick: false
+          });
+        }
       }}
     />
   );
 }
 
-CellHook.propTypes = {
-  positionX: PropTypes.number.isRequired,
-  positionY: PropTypes.number.isRequired
+CellHook.defaultProps = {
+  orientation: "",
+  ship: {},
+  cellTarget: {}
 };
 
-export default CellHook;
+CellHook.propTypes = {
+  positionX: PropTypes.number.isRequired,
+  positionY: PropTypes.number.isRequired,
+  orientation: PropTypes.string,
+  ship: PropTypes.shape({
+    shipType: PropTypes.string,
+    space: PropTypes.number,
+    start: PropTypes.number,
+    end: PropTypes.number
+  }),
+  cellTarget: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number
+  })
+};
+
+const mapStateToProps = (state) => ({
+  orientation: state.battleshipReducer.orientation,
+  ship: state.shipReducer,
+  cellTarget: state.selectCellReducer
+});
+
+export default connect(mapStateToProps)(CellHook);

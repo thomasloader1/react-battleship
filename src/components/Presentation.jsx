@@ -8,7 +8,7 @@ function Presentation({ player }) {
 }
 
 const mapStateToProps = (state) => ({
-  player: state.namePlayerReducer
+  player: state.playerReducer
 });
 
 export default connect(mapStateToProps)(Presentation);

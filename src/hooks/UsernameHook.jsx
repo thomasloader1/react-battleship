@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUsernameAction } from "../store/actions/namePlayerAction";
+import { setUsernameAction } from "../store/actions/playerAction";
 
 function UsernameHook() {
-  // const username = useSelector((state) => state.namePlayerReducer);
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
   return (

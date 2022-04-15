@@ -1,6 +1,6 @@
 import selectCellReducer from "./selectCellReducer";
 import boardReducer from "./boardReducer";
-import namePlayerReducer from "./namePlayerReducer";
+import playerReducer from "./playerReducer";
 import shipReducer from "./shipReducer";
 import battleshipReducer from "./battleshipReducer";
 
@@ -9,7 +9,7 @@ const { combineReducers } = require("redux");
 const rootReducers = combineReducers({
   selectCellReducer,
   boardReducer,
-  namePlayerReducer,
+  playerReducer,
   shipReducer,
   battleshipReducer
 });
