@@ -15,3 +15,8 @@ export const changeShipOrientation = (orientation) => ({
   type: CHANGE_ORIENTATION,
   payload: orientation
 });
+
+export const UNSELECT_SHIP = "UNSELECT_SHIP";
+export const unselectLastShipAction = () => ({
+  type: UNSELECT_SHIP
+});

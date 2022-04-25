@@ -27,3 +27,9 @@ export const decrementShipUnitAction = (type, quantity) => ({
   type: DECREMENT_SHIP_UNIT,
   payload: { type, quantity }
 });
+
+export const confirmPlaceShip = (payload) => (dispatch) => {
+  const { shipType, shipQuantity } = payload;
+  dispatch(unselectShipAction(null));
+  dispatch(decrementShipUnitAction(shipType, shipQuantity - 1));
+};

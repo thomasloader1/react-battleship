@@ -5,14 +5,24 @@ import Swal from "sweetalert2";
 
 import { useDispatch, connect } from "react-redux";
 import { selectCellAction } from "../store/actions/selectCellAction";
-import { placeShipAction } from "../store/actions/shipAction";
+import {
+  placeShipAction,
+  unselectLastShipAction
+} from "../store/actions/shipAction";
 import {
   decrementShipUnitAction,
   unselectShipAction
 } from "../store/actions/battleshipAction";
 import { setPlayerShipAction } from "../store/actions/playerAction";
 
-function CellHook({ positionY, positionX, orientation, ship, cellTarget }) {
+function CellHook({
+  positionY,
+  positionX,
+  orientation,
+  ship,
+  cellTarget,
+  ships
+}) {
   const cellRef = useRef(null);
   const dispatch = useDispatch();
   const { x: cellX, y: cellY } = cellTarget;
@@ -86,13 +96,18 @@ function CellHook({ positionY, positionX, orientation, ship, cellTarget }) {
       data-key={`x${positionX}-y${positionY}`}
       onClick={() => {
         if (shipType) {
+          const shipsQuantity = ships.filter((s) => s.type === shipType);
+          console.log(ship);
           dispatch(selectCellAction(positionY, positionX));
           dispatch(
             placeShipAction(shipType, space, orientation, startPlace, endPlace)
           );
-          dispatch(decrementShipUnitAction(shipType, 1));
-          dispatch(unselectShipAction(null));
           dispatch(setPlayerShipAction(ship));
+          dispatch(
+            decrementShipUnitAction(shipType, shipsQuantity[0].quantity)
+          );
+          dispatch(unselectLastShipAction());
+          dispatch(unselectShipAction(null));
         } else {
           Swal.fire({
             title: "Wait a minute!",
@@ -113,6 +128,7 @@ function CellHook({ positionY, positionX, orientation, ship, cellTarget }) {
 CellHook.defaultProps = {
   orientation: "",
   ship: {},
+  ships: [],
   cellTarget: {}
 };
 
@@ -126,6 +142,14 @@ CellHook.propTypes = {
     start: PropTypes.number,
     end: PropTypes.number
   }),
+  ships: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      space: PropTypes.number,
+      quantity: PropTypes.number,
+      filter: PropTypes.func
+    })
+  ),
   cellTarget: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number
@@ -134,6 +158,7 @@ CellHook.propTypes = {
 
 const mapStateToProps = (state) => ({
   orientation: state.battleshipReducer.orientation,
+  ships: state.battleshipReducer.ships,
   ship: state.shipReducer,
   cellTarget: state.selectCellReducer
 });

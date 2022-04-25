@@ -5,7 +5,7 @@ export const setUsernameAction = (name) => ({
 });
 
 export const SET_PLAYER_SHIP = "SET_PLAYER_SHIP";
-export const setPlayerShipAction = (ship) => ({
+export const setPlayerShipAction = (payload) => ({
   type: SET_PLAYER_SHIP,
-  payload: ship
+  ...payload
 });

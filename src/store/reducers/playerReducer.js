@@ -17,12 +17,7 @@ const playerReducer = (state = defaultPlayerState, action) => {
     case SET_PLAYER_SHIP: {
       return {
         ...state,
-        ships: state.ships.map((ship) => {
-          console.log(action);
-          return ship.type === action.payload.ship.type
-            ? action.payload.ship
-            : action.payload.ship;
-        })
+        ships: state.ships.push(action.payload)
       };
     }
     default:

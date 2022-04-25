@@ -1,7 +1,8 @@
 import {
   PLACE_SHIP,
   SET_SHIP,
-  CHANGE_ORIENTATION
+  CHANGE_ORIENTATION,
+  UNSELECT_SHIP
 } from "../actions/shipAction";
 
 const defaultShipState = {
@@ -15,6 +16,16 @@ const defaultShipState = {
 // eslint-disable-next-line default-param-last
 const shipReducer = (state = defaultShipState, action) => {
   switch (action.type) {
+    case UNSELECT_SHIP: {
+      return {
+        ...state,
+        shipType: null,
+        space: 0,
+        orientation: "Horizontally",
+        start: null,
+        end: null
+      };
+    }
     case PLACE_SHIP: {
       return {
         ...state,
