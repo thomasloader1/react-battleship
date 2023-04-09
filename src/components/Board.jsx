@@ -10,13 +10,13 @@ function Board(props) {
   const { ships, orientation, shipSelected } = props;
 
   return (
-    <>
+    <div className="grid md:grid-cols-[80%_20%]">
       <Grid data={props} />
-      <div className="ships">
+      <div className="ships bg-slate-500">
         <ShipOrientantionHook orientation={orientation} ship={shipSelected} />
         <Ships ships={ships} />
       </div>
-    </>
+    </div>
   );
 }
 
