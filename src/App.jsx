@@ -11,9 +11,11 @@ import UsernameHook from "./hooks/UsernameHook";
 function App() {
   return (
     <Provider store={store}>
-      <div className="App">
-        <h1>Battleship-app</h1>
-        <Presentation />
+      <div className="container grid grid-cols-2 grid-flow-row">
+        <div>
+          <h1 className="text-3xl font-bold py-3">Battleship-app</h1>
+          <Presentation />
+        </div>
         <div className="game-init">
           <Board />
           <UsernameHook />
